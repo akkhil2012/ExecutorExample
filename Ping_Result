@@ -1,0 +1,33 @@
+package com.executor.future;
+
+public class PingResult {
+	private String ipAddress;
+	public PingResult(String ipAddress, int code) {
+		this.ipAddress = ipAddress;
+		this.code = code;
+	}
+
+	@Override
+	public String toString() {
+		return "PingResult [ipAddress=" + ipAddress + ", code=" + code + "]";
+	}
+
+	public String getIpAddress() {
+		return ipAddress;
+	}
+
+	public void setIpAddress(String ipAddress) {
+		this.ipAddress = ipAddress;
+	}
+
+	public int getCode() {
+		return code;
+	}
+
+	public void setCode(int code) {
+		this.code = code;
+	}
+
+	private int code;
+
+}
