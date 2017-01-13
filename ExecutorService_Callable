@@ -1,0 +1,57 @@
+package com.executor.future;
+
+import java.net.InetAddress;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
+import java.util.concurrent.Callable;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+import java.util.concurrent.Future;
+
+public class ExecutorCallSample {
+	public static void main(String args[]) {
+		List<SiteResource> sites = new ArrayList<>();
+		sites.add(new SiteResource("127.0.0.1"));
+		sites.add(new SiteResource("172.217.26.206"));
+		sites.add(new SiteResource("172.0.0.2"));
+		List<Future<PingResult>> listOfResult = new ArrayList<>();
+		ExecutorService executorService = Executors.newFixedThreadPool(2);
+		Future<PingResult> future;
+		for(int i=0;i<3;i++){
+			future = executorService.submit(sites.get(i));
+			listOfResult.add(future);
+		}
+		 for(Future<PingResult> fut : listOfResult){
+	            try {
+	                System.out.println(new Date()+ "::"+fut.get());
+	            } catch (Exception e) {
+	                e.printStackTrace();
+	            }
+	        }
+		 executorService.shutdown();
+	}
+}
+
+
+
+class SiteResource implements Callable<PingResult>{
+	private String ipAddress;
+	public SiteResource(String ipAddress) {
+		this.ipAddress = ipAddress;
+	}
+	@Override
+	public PingResult call() throws Exception {
+		 InetAddress inet = null;
+		    try {
+		      inet = InetAddress.getByName(ipAddress);
+		      int resultCode = inet.isReachable(5000) ? 200 : -1;
+		      return new PingResult(ipAddress, resultCode);
+		    } catch (Exception e) {
+		      e.printStackTrace();
+		      return new PingResult(ipAddress, -1);
+		    }
+	}
+	
+	
+}
