@@ -1,0 +1,65 @@
+import java.util.concurrent.ArrayBlockingQueue;
+import java.util.concurrent.BlockingQueue;
+
+public class ProducerConsumerSample {
+	public static void main(String args[]) {
+		BlockingQueue<User> queue =
+				new ArrayBlockingQueue<>(5);
+		Thread producer = new Thread(new Producer(queue));
+		Thread consumer = new Thread(new Consumer(queue));
+
+		producer.start();
+		
+		try {
+			producer.join();
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+		}
+		consumer.start();
+	}
+}
+
+class Producer implements Runnable{
+	public Producer(BlockingQueue<User> queue) {
+		this.queue = queue;
+	}
+	private BlockingQueue<User> queue;
+	public void run() {
+		for(int i=0;i<8;i++){
+		System.out.println(" Thread inserting "+ queue.offer(new User(i)) + 
+				"  capacity for queue is " + queue.remainingCapacity());
+		try {
+			Thread.sleep(500);
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+		}
+		}
+	}
+}
+
+class Consumer implements Runnable{
+	public Consumer(BlockingQueue<User> queue) {
+		this.queue = queue;
+	}
+	BlockingQueue<User> queue;
+	public void run() {
+		System.out.println("Inside consumer..........");
+		while (this.queue.size()>0) {
+		 System.out.println(" Data consumed is " + queue.poll() +"  capacity for queueu is " +
+		queue.remainingCapacity());
+		}
+	}
+}
+
+class User{
+	public int getId() {
+		return id;
+	}
+	public void setId(int id) {
+		this.id = id;
+	}
+	private int id;
+	public User(int id) {
+		this.id = id;
+	}
+}
