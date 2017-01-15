@@ -1,0 +1,28 @@
+
+public class ThreadRaceCondition {
+	public static void main(String arg[]) {
+		Resource resource = new Resource();
+		for(int i=0;i<10;i++){
+			Thread t = new Thread(resource);
+			t.setName("Thread_ "+ i);
+			t.start();
+			try {
+				t.join();// To ensure the Order for the threads to run
+			} catch (InterruptedException e) {
+				e.printStackTrace();
+			}
+		}
+	}
+}
+
+
+class Resource implements Runnable{
+	public void run() {
+		System.out.println(" Thed accessig resources is " + Thread.currentThread().getName());
+		/*try {
+			Thread.sleep(1000);
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+		}*/
+	}
+}
