@@ -1,0 +1,42 @@
+import java.util.concurrent.atomic.AtomicInteger;
+/*
+ * 
+ * Race Conditon can be avoided as:
+ * 1. define Join of thread: does is hinders the performance??
+ * 2. implement synchronization on block
+ * 3. AtomicInteger : When only Atomic access is required so needn't to use syncronization block
+ */
+public class ThreadRaceCondition {
+	public static void main(String arg[]) {
+		Resource resource = new Resource();
+		for(int i=0;i<100;i++){
+			Thread t = new Thread(resource);
+			t.setName("Thread_ "+ i);
+			t.start();
+			
+			try {
+				t.join();
+			} catch (InterruptedException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			
+		}
+	}
+}
+
+
+class Resource implements Runnable{
+	int price = 1;
+	AtomicInteger atomicPrice = new AtomicInteger(1);
+	public void run() {
+		//synchronized (this) {
+			
+		
+		System.out.println("Price shown to Thread " + Thread.currentThread().getName() + " is " + price);
+//	System.out.println("Price shown to Thread " + Thread.currentThread().getName() + " is " + atomicPrice.getAndIncrement());
+		price +=1;
+	//	}
+	//	atomicPrice = atomicPrice.getAndIncrement();
+	}
+}
