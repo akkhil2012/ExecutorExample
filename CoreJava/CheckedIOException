@@ -1,0 +1,35 @@
+package com.concurr;
+
+import java.io.BufferedInputStream;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.LinkedHashSet;
+import java.util.List;
+
+public class ExceptionSample {
+	public static void main(String args[]) {
+		
+		List<Integer>  str = new ArrayList<>();
+		try{
+		str.add(Integer.parseInt("201"));
+		str.add(Integer.parseInt("akkhil"));
+		}catch(IOException e){// Mut have I/O operations defned within try block as this is a checked exception
+			e.printStackTrace();
+			System.out.println(" -- " + e.getMessage());
+		}
+		
+	
+		for(int i : str){
+			System.out.println(" " + i);
+		}
+		
+	}
+	
+	
+	
+	
+	
+}
