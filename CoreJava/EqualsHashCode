@@ -1,0 +1,89 @@
+package com.concurr;
+
+import java.util.HashMap;
+import java.util.Map;
+
+public class EqualHashCodeImpl {
+
+	public static void main(String args[]) {
+
+		Map<User, Product> mp = new HashMap<>();
+
+		// User u = new User("akkhil");
+
+		mp.put(new User("akkhil"), new Product("luxury"));
+		mp.put(new User("gupta"), new Product("books"));
+		mp.put(new User("nidhi"), new Product("sugar"));
+		mp.put(new User("mahajan"), new Product("shirt"));
+
+		for (Map.Entry<User, Product> e : mp.entrySet()) {
+
+			System.out.println(" " + e.getKey() + " " + e.getValue());
+		}
+
+		System.out.println(" ");
+
+		System.out.println(" Product retreived is " + (mp.get(new User("akkhil"))));
+		// System.out.println(" Product retreived is " + (mp.get(u)) );
+
+	}
+
+}
+
+class User {
+
+	String name;
+
+	@Override
+	public int hashCode() {
+		/*
+		 * final int prime = 31; int result = 1;
+		 */
+		// result = prime * result + ((name == null) ? 0 : name.hashCode());
+		int result = name.hashCode();
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		User other = (User) obj;
+		if (name == null) {
+			if (other.name != null)
+				return false;
+		} else if (!name.equals(other.name))
+			return false;
+		return true;
+	}
+
+	@Override
+	public String toString() {
+		return "User [name=" + name + "]";
+	}
+
+	public User(String name) {
+		super();
+		this.name = name;
+	}
+
+}
+
+class Product {
+
+	public Product(String productType) {
+		super();
+		this.productType = productType;
+	}
+
+	@Override
+	public String toString() {
+		return "Product [productType=" + productType + "]";
+	}
+
+	String productType;
+}
