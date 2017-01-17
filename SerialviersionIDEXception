@@ -12,9 +12,7 @@ import java.io.Serializable;
 public class SerializbleExample {
 
 	
-	public static void main(String args[]) throws FileNotFoundException, IOException {
-		
-		
+	private static void serialize() throws FileNotFoundException, IOException{
 		ObjectOutputStream out = new ObjectOutputStream(new FileOutputStream(new File("SampleFile.ser")));
 		
 		Course val = new Course("basic");
@@ -23,6 +21,10 @@ public class SerializbleExample {
 		
 		out.close();
 		
+	}
+	
+	
+	private static void deserialize() throws FileNotFoundException, IOException{
 		
 		ObjectInputStream in  =
 				  new ObjectInputStream(new FileInputStream("SampleFile.ser"));
@@ -38,6 +40,17 @@ public class SerializbleExample {
 		
 		in.close();
 	}
+	
+	
+	
+	
+	public static void main(String args[]) throws FileNotFoundException, IOException {
+		
+	//	serialize();
+		
+		deserialize();
+		
+	}
 }
 
 
@@ -46,14 +59,8 @@ class Course implements Serializable{
 	/**
 	 * 
 	 */
-	//private static final long serialVersionUID = 4022673977147283392L;
+	private static final long serialVersionUID = 4022673977147283395L;// Serialversion ID has been changed here
 	private  String name;
-	private  String name2;
-	private  String name3;
-	private  String name4;
-	private  String name5;
-	private  String name6;
-	private  String name7;
 
 	@Override
 	public String toString() {
