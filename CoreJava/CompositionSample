@@ -1,0 +1,44 @@
+package com.concurr;
+
+public class CompositionSample {
+
+	public static void main(String args[]) {
+
+		HeadCount count = new HeadCount(20);
+
+		Memo memo = new Memo(count);
+
+		System.out.println(" " + memo);
+	}
+
+}
+
+class Memo {
+
+	HeadCount headCount;
+
+	@Override
+	public String toString() {
+		return "Memo [headCount=" + headCount + "]";
+	}
+
+	public Memo(HeadCount headCount) {
+		this.headCount = headCount;
+	}
+
+}
+
+class HeadCount {
+
+	public HeadCount(int number) {
+		super();
+		this.number = number;
+	}
+
+	@Override
+	public String toString() {
+		return "HeadCount [number=" + number + "]";
+	}
+
+	int number;
+}
