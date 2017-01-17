@@ -1,0 +1,78 @@
+package com.thread;
+
+public class WaitNotiFySamplr {
+	
+	
+	static Object lock1 = new Object();
+	static Object lock2 = new Object();
+
+	public static void main(String args[]) {
+		Resource resource = new Resource(lock1,lock2);
+		for(int i=0;i<3;i++){
+			Thread t = new Thread(resource);
+			t.setName("Thread_" + i);
+			t.start();
+		}
+	}
+}
+
+
+
+class Resource implements Runnable{
+	
+	
+	String name;
+	
+	public Resource(Object lock1, Object lock2) {
+		super();
+		this.lock1 = lock1;
+		this.lock2 = lock2;
+	}
+
+
+	Object lock1,lock2;
+
+	@Override
+	public void run() {
+	//	System.out.println(" Thread accessing is " + Thread.currentThread().getName());
+		
+		synchronized (lock1) {
+				System.out.println(" Lock1 accessed by " + Thread.currentThread().getName());
+				 try {
+					lock1.wait(1200);
+				} catch (InterruptedException e) {
+					e.printStackTrace();
+				}
+				 System.out.println(" ");
+				 
+				 synchronized (lock2) {
+					 try {
+						 System.out.println(" Lock2 accessed by " + Thread.currentThread().getName());
+							lock2.wait(1200);
+						} catch (InterruptedException e) {
+							
+						}
+							
+					 
+				}
+				
+				 /*synchronized (lock2) {
+				 System.out.println(" Lock2 accessed by " + Thread.currentThread().getName());
+				 try {
+					lock2.wait();
+				} catch (InterruptedException e) {
+					System.out.println(" Lock2: Notifed Thread is " + Thread.currentThread().getName());
+					e.printStackTrace();
+				}
+				 System.out.println(" Waitig for Lock 1");
+			} */
+				 
+				 
+		}
+		
+	}
+	
+	
+	
+	
+}
