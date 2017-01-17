@@ -1,0 +1,70 @@
+package testCoreJava;
+
+class Student implements Cloneable {
+
+	Subject subject;
+
+	public Student(Subject subject) {
+		this.subject = subject;
+	}
+
+	public Subject getSubject() {
+		return subject;
+	}
+
+	public void setSubject(Subject subject) {
+		this.subject = subject;
+	}
+
+	protected Object clone() throws CloneNotSupportedException {
+		Student student = (Student) super.clone();
+
+		student.subject = (Subject) subject.clone();
+
+		return student;
+	}
+
+}
+
+class Subject implements Cloneable {
+	String name;
+	int score;
+
+	public Subject(String name, int score) {
+		this.name = name;
+		this.score = score;
+	}
+
+	protected Object clone() throws CloneNotSupportedException {
+		return super.clone();
+	}
+
+}
+
+public class CloningExample {
+
+	public static void main(String args[]) throws CloneNotSupportedException {
+
+		Subject subject = new Subject("Maths", 99);
+
+		Student student = new Student(subject);
+
+		Student studentClone;
+
+		studentClone = (Student) student.clone();
+
+		System.out.println(" from Original " + student.subject.name);
+
+		System.out.println(" from Clone  " + studentClone.subject.name);
+
+		student.subject.name = "biology";
+
+		System.out.println(" ");
+
+		System.out.println(" from Original " + student.subject.name);
+
+		System.out.println(" from Clone  " + studentClone.subject.name);
+
+	}
+
+}
