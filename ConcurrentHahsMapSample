@@ -1,0 +1,77 @@
+package testCoreJava;
+
+import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.concurrent.locks.Lock;
+import java.util.concurrent.locks.ReadWriteLock;
+import java.util.concurrent.locks.ReentrantReadWriteLock;
+
+public class ConcurrentHashMapSample {
+	public static void main(String args[]) {
+
+		ConcurrentHashMap<Integer, Associate> mp = new ConcurrentHashMap<>();
+
+		mp.put(1, new Associate("Akkhil", 100));
+		mp.put(2, new Associate("Kumar", 200));
+		mp.put(3, new Associate("Gupta", 400));
+		mp.put(4, new Associate("India", 500));
+
+		ConcurrentShredResource resource = new ConcurrentShredResource(mp);
+
+		for (int i = 0; i < 3; i++) {
+			Thread t = new Thread(resource);
+			t.setName("Thread_ " + i);
+			t.start();
+		}
+	}
+}
+
+class ConcurrentShredResource implements Runnable {
+	ConcurrentHashMap<Integer, Associate> mp;
+	public ConcurrentShredResource(ConcurrentHashMap<Integer, Associate> mp) {
+		this.mp = mp;
+	}
+	public void run() {
+		for (Map.Entry<Integer, Associate> m : mp.entrySet()) {
+			if (m.getKey() == 3) {
+				mp.put(007, new Associate("HP", 007));
+			}
+			System.out.println(
+					" " + m.getKey() + " " + m.getValue() + "  accessed by thread " + Thread.currentThread().getName());
+		}
+	}
+}
+
+class Associate {
+	String name;
+	int score;
+
+	public Associate(String name, int score) {
+		this.name = name;
+		this.score = score;
+	}
+
+	@Override
+	public String toString() {
+		return "Associate [name=" + name + ", score=" + score + "]";
+	}
+
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
+
+	public int getScore() {
+		return score;
+	}
+
+	public void setScore(int score) {
+		this.score = score;
+	}
+}
