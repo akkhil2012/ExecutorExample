@@ -1,0 +1,44 @@
+package com.concurr;
+
+import java.io.BufferedInputStream;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.LinkedHashSet;
+import java.util.List;
+
+public class ExceptionSample {
+	{
+		System.out.println(" In Dynamic Block ");
+	}
+	static {
+		System.out.println(" Hello world  NEW.....");
+	}
+	static {
+
+		System.out.println(" Hello world .....");
+	}
+
+	public static void main(String args[]) {
+
+		System.out.println(" Hello world . FROM mAIN....");
+
+		// ExceptionSample sample = new ExceptionSample();
+
+		ChildClass childClass = new ChildClass();
+	}
+
+}
+
+class ChildClass extends ExceptionSample {
+
+	{
+		System.out.println(" Dynamc in Child Class");
+	}
+
+	static {
+		System.out.println(" static in Child Class");
+	}
+}
