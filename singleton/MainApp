@@ -1,0 +1,37 @@
+package com.core.notes;
+
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
+
+public class MainApp {
+	public static void main(String arg[]) throws FileNotFoundException, IOException {
+		serialize();
+		deserialize();
+	}
+
+	private static void serialize() throws FileNotFoundException, IOException {
+		ObjectOutputStream out = new ObjectOutputStream(new FileOutputStream(new File("testExample.ser")));
+		SingletonSerializableExample val = SingletonSerializableExample.getInstance();
+		System.out.println(" HashCode for serilized object  " + val.hashCode());
+		out.writeObject(val);
+		out.close();
+	}
+
+	private static void deserialize() throws FileNotFoundException, IOException {
+		ObjectInputStream in = new ObjectInputStream(new FileInputStream("testExample.ser"));
+		SingletonSerializableExample readVal = null;
+		try {
+			readVal = (SingletonSerializableExample) in.readObject();
+			System.out.println(" HashCode for retreived " + readVal.hashCode());
+		} catch (ClassNotFoundException e) {
+			e.printStackTrace();
+		}
+		in.close();
+	}
+
+}
