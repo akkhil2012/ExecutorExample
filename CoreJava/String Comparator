@@ -1,0 +1,35 @@
+package com.concurr;
+
+public class StringSample {
+	
+	public static void  main(String arg[]) {
+		
+		String str = "india";
+		
+		
+		
+		String str3 = new String("india"); 
+		
+		String str1 = str3;
+		
+		str3 = str;
+		
+		System.out.println(" 1-- "+ (str1.equals(str3)));//true
+		
+		//System.out.println(" 2-- "+ (str1==str3));//true
+		
+		System.out.println(" 3-- "+ ("akkhil"=="akkhil"));//true // literals get interned to String 0bject(in heap)
+		
+		System.out.println(" 4-- "+ (new String("india").equals(new String("india"))));//true
+		
+		
+		System.out.println(" 5-- "+( str == str3));//false
+		
+		/*System.out.println(" E-- "+ str.equals(str1));//false
+
+		System.out.println("  3--"+ str.equals(str3));//true
+		
+		System.out.println("  4--"+ str1.equals(str3));//true
+*/	}
+
+}
