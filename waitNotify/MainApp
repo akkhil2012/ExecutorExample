@@ -1,0 +1,15 @@
+package com.thread;
+
+public class MainApp {
+	
+	public static void  main(String arg[]) {
+		Message msg = new Message("msgLock");
+		for(int i=0;i<3;i++){
+			Thread t = new Thread(new Waiter(msg));
+			t.setName("Thread_ " + i);
+			t.start();
+		}
+        Notifier notifier = new Notifier(msg);
+        new Thread(notifier, "notifier").start();
+	}
+}
