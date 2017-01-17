@@ -1,0 +1,59 @@
+package com.concurr;
+
+import java.util.Collections;
+import java.util.HashSet;
+import java.util.Iterator;
+import java.util.Set;
+import java.util.TreeSet;
+
+public class StringSample {
+	
+	public static void  main(String arg[]) throws InterruptedException {
+		
+		SharedResource resource 
+		 					= new SharedResource();
+		
+	/*	Thread t = new Thread(resource);
+		
+		t.start();*/
+		
+		for(int i=0;i<3;i++){
+			Thread t = new Thread(resource);
+			t.setName("Thread_ " + i);
+			t.start();
+		//	t.join();
+		}
+		
+		
+		
+		}
+
+}
+
+
+class SharedResource implements Runnable{
+	static Set<String> st = new TreeSet<>();
+	
+	static {
+	
+	st.add("wkkhil");
+	st.add("zumar");
+	st.add("gupta");
+	
+	Collections.synchronizedSet(st);
+	}
+
+	public void run() {
+		
+		synchronized (st) { // Must to syncronize the returning set so as to make all accesses to backing et syncronized
+
+			Iterator<String> it = st.iterator();
+			while (it.hasNext()) {
+				System.out.println(" " + it.next());
+			}
+		}
+		System.out.println("");
+		
+	}
+	
+}
