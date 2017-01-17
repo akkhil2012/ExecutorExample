@@ -1,0 +1,30 @@
+
+	package testCoreJava;
+
+	import java.util.HashMap;
+import java.util.Iterator;
+	import java.util.LinkedHashSet;
+import java.util.Map;
+import java.util.Set;
+	import java.util.TreeSet;
+
+	public class MapSample {
+		
+		public static void main(String args[]) {
+			
+			Map<Memo,String> mp = new HashMap<>();
+			Memo m = new Memo(13, "zimbabwe");
+			mp.put(null, "nullValue_1");
+			mp.put(null, "nullValue_2");
+			mp.put(null, "nullValue_3");
+			mp.put(m, "Sample");
+			mp.put(new Memo(2, "usa"), "");
+			mp.put(new Memo(4, "UK"), "");
+			mp.put(m, "SampleZimbabwe");
+			
+			for(Map.Entry<Memo,String> st : mp.entrySet()){
+				System.out.println("  "+ st.getKey()+" -- "+ st.getValue());
+			}
+		}
+
+	}
