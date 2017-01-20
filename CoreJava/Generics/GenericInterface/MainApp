@@ -1,0 +1,78 @@
+package com.core.generics;
+
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.List;
+
+public class MainApp {
+
+	public static void main(String args[]) {
+
+		Pair<String, Integer> p1 = new OrderedPair<String, Integer>("Akkhil", 123);
+
+		Pair<String, String> p2 = new OrderedPair<String, String>("hello", "world");
+
+		Pair<String, Box<String>> p3 = new OrderedPair<String, Box<String>>("hello", new Box("world"));
+
+		Box box = new Box("");
+
+		box.addList(p1);
+
+		box.addList(p2);
+
+		box.addList(p3);
+
+		Iterator<Box<Object>> itr = box.projects.iterator();
+
+		while (itr.hasNext()) {
+			System.out.println(" " + itr.next());
+		}
+
+		box.inspect(box); // Check for extends case
+
+	}
+
+}
+
+class Container {
+
+}
+
+class Box<E> extends Container {
+	private E e;
+	List<E> projects = new ArrayList<>();
+
+	public E getE() {
+		return e;
+	}
+
+	public Box(E e) {
+		this.e = e;
+	}
+
+	public List<E> getProjects() {
+		return projects;
+	}
+
+	@Override
+	public String toString() {
+		return "Box [e=" + e + ", projects=" + projects + "]";
+	}
+
+	public void setE(E e) {
+		this.e = e;
+	}
+
+	void addList(E e) {
+		projects.add(e);
+	}
+
+	public <U extends Container> void inspect(U u) {
+
+		System.out.println("E is  ----- " + e.getClass().getName());
+
+		System.out.println("U is ------ " + u.getClass().getName());
+
+	}
+
+}
