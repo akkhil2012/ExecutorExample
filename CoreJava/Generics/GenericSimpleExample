@@ -1,0 +1,81 @@
+package com.core.generics;
+
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.List;
+
+public class SampleGeneris {
+	
+	public static void main(String arg[]) {
+		
+		Box<Object> box 
+		 					= new Box();
+		
+		box.addList("india");
+		box.addList("domain");
+		
+		
+		box.addList(123);
+		
+		
+		box.addList(new Document("firstDocument"));
+		
+		List<Object>  lst = box.getProjects();
+		
+		Iterator<Object>  itr = lst.iterator();
+		
+		
+		while(itr.hasNext()){
+			System.out.println(" " + itr.next());
+		}
+	}
+
+}
+
+
+
+class Box<E>{
+	private E e;
+	List<E> projects = new ArrayList<>();
+	public E getE() {
+		return e;
+	}
+
+	public List<E> getProjects() {
+		return projects;
+	}
+
+	public void setE(E e) {
+		this.e = e;
+	}
+	
+	void addList(E e){
+		projects.add(e);
+	}
+}
+
+
+
+class Document{
+	
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
+
+	String name;
+
+	@Override
+	public String toString() {
+		return "Document [name=" + name + "]";
+	}
+
+	public Document(String name) {
+		this.name = name;
+	}
+	
+	
+}
