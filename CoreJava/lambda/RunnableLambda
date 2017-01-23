@@ -1,0 +1,18 @@
+package com.concurr;
+
+public class RunnableLambda {
+	public static void main(String args[]){
+		/*
+		 * remove all modifiers
+		 */
+		Thread t = new Thread(new Runnable() {
+			public void run() {
+				System.out.println(" Runnable ");
+			}
+		});
+		
+		Thread t1 = new Thread(() -> System.out.println(" Runnable in lambda "));
+		t.run();
+		t1.run();
+	}
+}
