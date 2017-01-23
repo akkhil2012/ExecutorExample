@@ -1,0 +1,26 @@
+package com.jva.lambda;
+
+public class TypeInferenceExample {
+
+	public static void main(String args[]) {
+
+		/*StringLength str = s -> s.length();
+
+		System.out.println(" length is " + str.getLength("sample112"));*/
+		
+		printLambda(s -> s.length());
+	}
+
+	
+	public static void printLambda(StringLength l){
+		
+		System.out.println(" "+ l.getLength("test ample"));
+	}
+	
+	
+	
+	interface StringLength {
+
+		int getLength(String str);
+	}
+}
