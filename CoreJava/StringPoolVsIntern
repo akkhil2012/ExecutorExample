@@ -1,0 +1,19 @@
+public class FinalizeSample {
+
+	public static void main(String args[]) {
+		String region = "india";
+		String name = new String("dummy");
+		
+		String s2 = name.intern();// is similar string already exists in string pool than intern() retrns that reference hence reference are equal
+		
+		if(name == s2){
+			System.out.println(" String i from string pool ");
+		}else{
+			System.out.println(" String is NOT  from string pool ");
+		}
+		
+		
+	/*	for(int i=0;i<4;i++){
+		System.out.println(" hashCode " + region.hashCode());
+		}*/
+	}
