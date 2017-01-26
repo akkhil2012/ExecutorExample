@@ -1,0 +1,65 @@
+package testCoreJava;
+
+public class WaitNotifyExample {
+	
+	
+	public static void main(String[] args) throws InterruptedException{
+		
+		
+		ThreadClass resource = new ThreadClass();
+		//for(int i=0;i<2;i++){
+		Thread t = new Thread(resource);
+		t.setName("worker Thread_ ");
+		t.start();
+		//t.join();
+		//}
+		
+		
+		
+		
+		
+		ThreadClass threadClass = new ThreadClass();
+		
+		synchronized (threadClass) {
+			
+			try {
+				
+			//	while(threadClass.conditon){
+					System.out.println(" Thead accessing wait is   " + Thread.currentThread().getName());
+					threadClass.wait(100);
+					System.out.println(" Thead After relinquishing the  wait is   " + Thread.currentThread().getName());
+			//	}
+			} catch (InterruptedException e) {
+				e.printStackTrace();
+			}
+		}
+	}
+
+}
+
+
+
+class ThreadClass implements Runnable{
+	
+	static boolean conditon = true;
+	
+
+	public void run() {
+		System.out.println(" Thead entering inside run method  is   " + Thread.currentThread().getName());
+		
+		synchronized (this) {
+			System.out.println(" Thead accessing insde notify bock is   " + Thread.currentThread().getName());
+		//	this.conditon = false;
+			this.notify();
+		}
+	}
+	
+	
+	
+	
+}
+
+
+
+
+
