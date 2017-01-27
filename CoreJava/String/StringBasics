@@ -1,0 +1,40 @@
+package testCoreJava;
+
+import java.io.CharArrayReader;
+import java.nio.CharBuffer;
+
+public class StringSample {
+	
+	
+	public static void main(String arg[]) {
+		String str = "ab";
+		char ch[] = new char[]{'a','b'};
+		String str1 = new String(ch);
+		System.out.println(" " + str1.equals(str));
+		String str2 = new String(str1);
+		
+		StringBuffer stringBuffer = new StringBuffer("ab");
+		
+		CharSequence charBuffer = new StringBuffer("ab");
+		System.out.println(" Are contents equal " + str2.contentEquals(charBuffer));// contentEquals : check for contents only and NOT instances
+		System.out.println(" Are intances  equal " + str2.equals(charBuffer)); // check for the instance and contents both
+		
+		
+		StringBuilder stringBuilder = new StringBuilder();
+		
+		stringBuilder.append("akkhil");
+		stringBuilder.append("kumar");
+		stringBuilder.append("gupta");
+		
+		String temp = null;
+		
+		stringBuilder.append(temp);
+		
+		System.out.println(" >>> " + stringBuilder);
+		
+		
+		
+		
+	}
+
+}
