@@ -1,0 +1,54 @@
+package com.concurrent.util;
+
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+
+public class MainApp {
+	
+	public static void main(String args[]) {
+		
+		SharedClass buffer = new SharedClass();
+		
+		//ExecutorService executorService = Executors.newFixedThreadPool(2);//spawns two threads only
+	ExecutorService executorService = Executors.newCachedThreadPool();// spawns 1001 threads so more resource utilization
+		
+		Producer producer = new Producer(buffer);
+		
+	
+		long start = 0;
+		 
+		for(int i=0;i<1000;i++){
+			if(i==0){
+				start = System.nanoTime();
+				System.out.println(" Time start  "+ start);
+			}
+			executorService.execute(producer);
+			if(i==9)
+				System.out.println(" Time elapsed  "+ (System.nanoTime()-start));
+		}
+		
+	System.out.println(" Active threads " + Thread.activeCount());
+		
+		executorService.shutdown();
+		
+		
+		
+		
+		
+	/*	for(int i=0;i<10;i++){
+			if(i==0){
+				start = System.nanoTime();
+				System.out.println(" Time start  "+ start);
+			}
+			Thread t = new Thread(producer);
+			t.setName(" Thread_" + i);
+			t.start();
+			if(i==9)
+				System.out.println(" Time elapsed  "+ (System.nanoTime()-start));
+		}*/
+			
+		/*	Thread t1 = new Thread(consumer);
+			t1.start();*/
+	}
+
+}
